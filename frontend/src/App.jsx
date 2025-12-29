@@ -1,14 +1,21 @@
-import { useEffect } from "react";
-import api from "./api/axios";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/login";
+import Verify2FA from "./pages/verify2fa";
+import Profile from "./pages/profile";
+import Recommend from "./pages/recommend";
+import Navbar from "./components/navbar";
 
 function App() {
-  useEffect(() => {
-    api.get("/auth/health") // or "/health" if you made that route
-      .then(res => console.log("backend says:", res.data))
-      .catch(err => console.error(err.response?.data || err.message));
-  }, []);
-
-  return <h1>snackify frontend running</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/verify" element={<Verify2FA />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/recommend" element={<Recommend />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
