@@ -1,22 +1,11 @@
-import express from "express";
 import dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes.js";
-import recommendRoute from "./routes/recommendRoutes.js";
+import app from "./app.js";
 
-dotenv.config(); // ALWAYS first
+dotenv.config();
+console.log("server.js loaded");
 
-const app = express();
-
-// middleware
-app.use(express.json());
-
-// routes
-app.use("/api/auth", authRoutes);
-app.use("/api", recommendRoute);
-
-// start server
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log("we are live on port", PORT);
 });
-
