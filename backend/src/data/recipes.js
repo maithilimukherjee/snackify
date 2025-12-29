@@ -31,7 +31,7 @@ export const recipes = [
         type: "veg"
     },
     {
-        name: "broccoli stir fry",
+        name: "broccoli fry",
         ingredients: ["broccoli", "garlic", "soy sauce", "olive oil"],
         healthy: true,
         type: "veg"
