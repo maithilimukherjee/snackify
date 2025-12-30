@@ -24,6 +24,15 @@ const Dashboard = () => {
     });
   };
 
+
+  const sendToIdeas = () => {
+    navigate("/send-ideas");
+  }
+
+  const handleClick3rdCard = () => {
+    navigate("/profile");
+  };
+
   return (
     <>
       <Navbar isAuthenticated={true} />
@@ -67,13 +76,13 @@ const Dashboard = () => {
           <div className="info-card">
             <h3>send recipe ideas</h3>
             <p>help us improve recommendations</p>
-            <Button text="send ideas" />
+            <Button text="send ideas" onClick={sendToIdeas} />
           </div>
 
           <div className="info-card">
             <h3>profile</h3>
-            <p>update preferences later</p>
-            <Button text="view profile" />
+            <p>view your snackify profile!</p>
+            <Button text="view profile" onClick={handleClick3rdCard}/>
           </div>
         </div>
       </div>

@@ -56,5 +56,13 @@ export const ingredients = [
     "sweet potato",
     "bell pepper",
     "jalapeno",
-    "avocado"
+    "avocado",
+    "potatoes",
+    "pasta",
+    "quinoa",
+    "tomatoes",
+    "tomato",
+    "cabbage",
+    "peas",
+    "corn",
 ];  

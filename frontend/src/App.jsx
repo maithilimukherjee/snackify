@@ -5,6 +5,7 @@ import Verify2FA from "./pages/verify2fa";
 import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import Recommend from "./pages/recommend";
+import Ideas from "./pages/ideas";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/recommendRecipes" element={<Recommend />} />
+      <Route path="/send-ideas" element={<Ideas />} />
     </Routes>
   );
 }
