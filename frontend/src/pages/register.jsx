@@ -22,7 +22,6 @@ const Register = () => {
               </option>
               <option value="veg">veg</option>
               <option value="non-veg">non-veg</option>
-              <option value="vegan">vegan</option>
             </select>
 
             <Button variant="olive" text="register" />
