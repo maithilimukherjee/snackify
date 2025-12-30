@@ -5,7 +5,7 @@ import "./register.css";
 const Register = () => {
   return (
     <>
-      <Navbar />
+      <Navbar isAuthenticated={false}/>
 
       <div className="register-wrapper">
         <div className="register-card">
@@ -22,6 +22,7 @@ const Register = () => {
               </option>
               <option value="veg">veg</option>
               <option value="non-veg">non-veg</option>
+
             </select>
 
             <Button variant="olive" text="register" />

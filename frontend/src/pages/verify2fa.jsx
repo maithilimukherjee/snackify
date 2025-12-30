@@ -1,17 +1,35 @@
-import React from 'react'
-import "./verify2fa.css"
-import Button from '../components/button';
+import Navbar from "../components/navbar";
+import Button from "../components/button";
+import "./verify2fa.css";
 
-const verify2fa = () => {
+const Verify2FA = () => {
   return (
-    <div>
-      <form className="verify-form">
-        <input type="text" placeholder="enter 2fa code" />
-        <button>verify</button>
+    <>
+      <Navbar />
 
-      </form>
-    </div>
-  )
-}
+      <div className="verify-wrapper">
+        <div className="verify-card">
+          <h2>verify your identity</h2>
+          <p>enter the 6-digit code sent to your device</p>
 
-export default verify2fa
+          <form className="verify-form">
+            <input
+              type="text"
+              maxLength="6"
+              placeholder="••••••"
+              className="otp-input"
+            />
+
+            <Button variant="olive" text="verify" />
+          </form>
+
+          <div className="verify-footer">
+            didn’t receive the code? <span>resend</span>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Verify2FA;

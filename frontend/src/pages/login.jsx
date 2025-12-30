@@ -5,7 +5,7 @@ import "./login.css";
 const Login = () => {
   return (
     <>
-      <Navbar />
+      <Navbar isAuthenticated={false}/>
 
       <div className="login-wrapper">
         <div className="login-card">
