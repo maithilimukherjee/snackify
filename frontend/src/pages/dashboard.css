@@ -27,6 +27,16 @@
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
+.fridge-card select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #dde5dd;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+}
+
 .fridge-card input:focus {
   border-color: #588157;
   box-shadow: 0 0 0 3px rgba(88, 129, 87, 0.15);

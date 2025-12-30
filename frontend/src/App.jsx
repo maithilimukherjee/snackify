@@ -14,7 +14,7 @@ function App() {
       <Route path="/verify2fa" element={<Verify2FA />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/recommend" element={<Recommend />} />
+      <Route path="/recommendRecipes" element={<Recommend />} />
     </Routes>
   );
 }
