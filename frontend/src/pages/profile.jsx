@@ -1,45 +1,89 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import Button from "../components/button";
+import api from "../api/axios";
 import "./profile.css";
 
 const Profile = () => {
-  const [pfp, setPfp] = useState(null); // placeholder
-  const [name, setName] = useState("dennis ritchie"); // placeholder
-  const [email, setEmail] = useState("dennisritchie@abc.com"); // placeholder
-  const [foodPref, setFoodPref] = useState("veg"); // placeholder
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    food_pref: ""
+  });
   const [success, setSuccess] = useState("");
 
-  const handleUpdate = () => {
-    // TODO: connect to backend to save food preference
-    setSuccess("preferences updated successfully!");
-    setTimeout(() => setSuccess(""), 3000);
+  useEffect(() => {
+    // fetch user data on mount
+    const fetchProfile = async () => {
+      try {
+        const res = await api.get("/user/profile"); // backend endpoint should return {name, email, food_pref}
+        setUser(res.data);
+      } catch (err) {
+        console.error("failed to fetch profile", err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleChange = (e) => {
+    setUser(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await api.put("/user/profile", user); // backend endpoint to update user profile
+      setSuccess("Profile updated successfully!");
+      setTimeout(() => setSuccess(""), 3000); // clear message after 3s
+    } catch (err) {
+      console.error("failed to update profile", err);
+      alert("update failed");
+    }
   };
 
   return (
     <>
       <Navbar isAuthenticated={true} />
-
       <div className="profile-wrapper">
         <div className="profile-card">
           <h2>your profile</h2>
 
-          <label>Name</label>
-          <input type="text" value={name} disabled />
+          <label htmlFor="name">name</label>
+          <input
+            type="text"
+            name="name"
+            value={user.name}
+            onChange={handleChange}
+            disabled
+          />
 
-          <label>Email</label>
-          <input type="email" value={email} disabled />
+          <label htmlFor="email">email</label>
+          <input
+            type="email"
+            name="email"
+            value={user.email}
+            onChange={handleChange}
+            disabled
+          />
 
-          <label>Food Preference</label>
-          <select value={foodPref} onChange={(e) => setFoodPref(e.target.value)}>
+          <label htmlFor="food_pref">food preference</label>
+          <select
+            name="food_pref"
+            value={user.food_pref}
+            onChange={handleChange}
+          >
+            <option value="" disabled>select preference</option>
             <option value="veg">veg</option>
             <option value="non-veg">non-veg</option>
             <option value="vegan">vegan</option>
           </select>
 
-          {success && <p className="success-msg">{success}</p>}
+          <Button variant="olive" text="update profile" onClick={handleUpdate} />
 
-          <Button variant="olive" text="update preferences" onClick={handleUpdate} />
+          {success && <p className="success-msg">{success}</p>}
         </div>
       </div>
     </>

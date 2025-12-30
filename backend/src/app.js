@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import recommendRoute from "./routes/recommendRoutes.js";
+import profileRoute from "./routes/profileRoute.js";
 
 console.log("app.js loaded");
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api", recommendRoute);
+app.use("/api/user",profileRoute)
 
 app.get("/api/auth/health", (req, res) => {
   res.json({ status: "backend up" });
