@@ -1,31 +1,58 @@
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import api from "../api/axios";
 import Navbar from "../components/navbar";
 import Button from "../components/button";
-import "./verify2fa.css";
+import "./register.css"; // we can reuse register-card styles
 
 const Verify2FA = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email || "";
+
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
+
+  const handleVerify = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await api.post("/auth/verify2fa", {
+        email,
+        twofa_code: code,
+      });
+
+      // save JWT token to localStorage
+      localStorage.setItem("token", res.data.token);
+
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Invalid code. Try again!");
+    }
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar isAuthenticated={false} />
 
-      <div className="verify-wrapper">
-        <div className="verify-card">
-          <h2>verify your identity</h2>
-          <p>enter the 6-digit code sent to your device</p>
+      <div className="register-wrapper">
+        <div className="register-card">
+          <h2>verify your 2FA</h2>
+          <p>We sent a 2FA code to {email}</p>
 
-          <form className="verify-form">
+          <form className="register-form" onSubmit={handleVerify}>
             <input
               type="text"
-              maxLength="6"
-              placeholder="••••••"
-              className="otp-input"
+              placeholder="Enter 2FA code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
             />
+
+            {error && <p style={{ color: "red", fontSize: "14px" }}>{error}</p>}
 
             <Button variant="olive" text="verify" />
           </form>
-
-          <div className="verify-footer">
-            didn’t receive the code? <span>resend</span>
-          </div>
         </div>
       </div>
     </>
