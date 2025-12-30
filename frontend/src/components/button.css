@@ -1,0 +1,54 @@
+.btn {
+  padding: 12px 28px;
+  border-radius: 14px;
+  border: none;
+
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+  transition: 
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.2s ease;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* olive primary */
+.btn.olive {
+  background: linear-gradient(135deg, #588157, #3a5a40);
+  color: #fefefe;
+  box-shadow: 0 8px 18px rgba(58, 90, 64, 0.25);
+}
+
+.btn.olive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(58, 90, 64, 0.35);
+}
+
+.btn.olive:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(58, 90, 64, 0.25);
+}
+
+/* default soft button */
+.btn.default {
+  background: #ecf2ec;
+  color: #344e41;
+}
+
+.btn.default:hover {
+  background: #dde5dd;
+}
+
+/* responsive sizing */
+@media (max-width: 480px) {
+  .btn {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
+}

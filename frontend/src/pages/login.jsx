@@ -1,4 +1,5 @@
 import Navbar from "../components/navbar";
+import Button from "../components/button";
 import "./login.css";
 
 const Login = () => {
@@ -14,7 +15,10 @@ const Login = () => {
           <input type="email" placeholder="email" />
           <input type="password" placeholder="password" />
 
-          <button>login</button>
+          <Button text="login" />
+          <span className="login-footer">
+          don't have an account? <a href="/register">register</a>
+          </span>
         </div>
       </div>
     </>
