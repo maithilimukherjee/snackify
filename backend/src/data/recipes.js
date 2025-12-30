@@ -352,5 +352,16 @@ export const recipes = [
     ],
     "type": "veg",
     "healthy": false
+  },
+  {
+    "name": "hot chocolate",
+    "ingredients": [
+      "milk",
+      "cocoa powder",
+      "sugar",
+      "cornstarch"
+    ],
+    "type": "veg",
+    "healthy": false
   }
 ];

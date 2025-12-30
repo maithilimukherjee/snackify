@@ -58,7 +58,7 @@ const Ideas = () => {
       <div className="ideas-wrapper">
         <div className="ideas-card">
           <h2>submit your recipe idea</h2>
-          <p>help snackify get smarter 🧠🍽️</p>
+          <p>help snackify get smarter!</p>
 
           <form onSubmit={handleSubmit} className="ideas-form">
             <label>dish name</label>
@@ -83,7 +83,7 @@ const Ideas = () => {
             <select value={type} onChange={(e) => setType(e.target.value)}>
               <option value="veg">veg</option>
               <option value="non-veg">non-veg</option>
-              <option value="vegan">vegan</option>
+              
             </select>
 
             <label className="checkbox-label">

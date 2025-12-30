@@ -50,7 +50,7 @@ const Recommend = () => {
       <Navbar isAuthenticated={true} />
 
       <div className="recommend-wrapper">
-        <h2>recommended recipes 🍽️</h2>
+        <h2>snackify recommends: </h2>
         <p className="sub">
           based on what’s in your fridge
         </p>
@@ -60,7 +60,7 @@ const Recommend = () => {
         {error && <p className="error">{error}</p>}
 
         {!loading && recipes.length === 0 && !error && (
-          <p>no good matches found. try adding more ingredients 👀</p>
+          <p>no good matches found. try adding more ingredients.</p>
         )}
 
         <div className="recipe-list">
@@ -75,7 +75,7 @@ const Recommend = () => {
 
               <p>
                 <strong>health:</strong>{" "}
-                {recipe.healthy ? "healthy 💚" : "comfort food 😌"}
+                {recipe.healthy ? "healthy" : "comfort food"}
               </p>
             </div>
           ))}

@@ -1,49 +1,51 @@
-// ---------------------------------------------
-// recommendation engine
-// ---------------------------------------------
-//
-// input:
-//    userIngredients = ["egg", "rice", "tomato"]
-//    preference = "veg" or "non-veg" or "both"
-//
-// output:
-//    returns the top 3 best matching recipes
-//
-// logic:
-//    1. filter recipes by type (veg / non-veg / both)
-//    2. calculate "match score" = number of ingredients that match
-//    3. sort recipes by score (descending)
-//    4. return top 3
-//
-// simple, clean, scalable.
-// ---------------------------------------------
-
 import { recipes } from "../data/recipes.js";
 
 export const recommendRecipes = (userIngredients, preference = "both") => {
-    // step 1 → filter by food preference
-    let filteredRecipes = recipes;
+  // normalize user ingredients
+  const normalizedUserIngredients = userIngredients.map(i =>
+    i.trim().toLowerCase()
+  );
 
-    if (preference === "veg") {
-        filteredRecipes = recipes.filter(r => r.type === "veg");
-    } else if (preference === "non-veg") {
-        filteredRecipes = recipes.filter(r => r.type === "non-veg");
-    }
+  // step 1 → filter by food preference
+  let filteredRecipes = recipes;
 
-    // step 2 → score each recipe based on matching ingredients
-    const scored = filteredRecipes.map(recipe => {
-        let score = 0;
+  if (preference === "veg") {
+    filteredRecipes = recipes.filter(r => r.type === "veg");
+  } else if (preference === "non-veg") {
+    filteredRecipes = recipes.filter(r => r.type === "non-veg");
+  }
 
-        recipe.ingredients.forEach(ing => {
-            if (userIngredients.includes(ing)) score++;
-        });
+  // step 2 → score recipes
+  const scored = filteredRecipes.map(recipe => {
+    const recipeIngredients = recipe.ingredients.map(i =>
+      i.toLowerCase()
+    );
 
-        return { ...recipe, score };
-    });
+    const score = recipeIngredients.filter(ing =>
+      normalizedUserIngredients.includes(ing)
+    ).length;
 
-    // step 3 → sort by the highest score first
-    scored.sort((a, b) => b.score - a.score);
+    return { ...recipe, score };
+  });
 
-    // step 4 → return the top 3 recipes
-    return scored.slice(0, 3);
+  // step 3 → remove useless recipes
+  let validRecipes;
+
+  if (normalizedUserIngredients.length === 1) {
+    // single ingredient → allow broad matches
+    validRecipes = scored.filter(r => r.score >= 1);
+  } else {
+    // multiple ingredients → stricter matching
+    const MIN_MATCH_RATIO = 0.5;
+
+    validRecipes = scored.filter(
+      r => r.score / normalizedUserIngredients.length >= MIN_MATCH_RATIO
+    );
+  }
+
+  // step 4 → sort by relevance
+  validRecipes.sort((a, b) => b.score - a.score);
+
+  // step 5 → return top 3
+  return validRecipes.slice(0, 3);
 };
