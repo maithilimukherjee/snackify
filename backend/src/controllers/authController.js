@@ -114,7 +114,7 @@ export const verify2FA = async (req, res) => {
     }
 
     const existing = await pool.query(
-      "select * from users where email=$1",
+      "SELECT * FROM users WHERE email=$1",
       [email]
     );
 
@@ -133,21 +133,13 @@ export const verify2FA = async (req, res) => {
     }
 
     await pool.query(
-      "update users set twofa_code=null, twofa_expiry=null where id=$1",
+      "UPDATE users SET twofa_code=NULL, twofa_expiry=NULL, is_verified=true WHERE id=$1",
       [user.id]
     );
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES }
-    );
-
     res.status(200).json({
-      message: "2fa verified",
-      token,
+      message: "verification successful"
     });
-
   } catch (error) {
     console.error("verify2FA error:", error);
     res.status(500).json({ message: "server error" });
