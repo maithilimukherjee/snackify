@@ -10,7 +10,7 @@ export const submitIdea = (req, res) => {
   console.log("submitIdea called");
 
   try {
-    const { name, ingredients, type, healthy } = req.body;
+    const { name, ingredients, type, healthy, directions, recipeLink } = req.body;
 
     if (!name || !ingredients || !type) {
       return res
@@ -45,6 +45,8 @@ export const submitIdea = (req, res) => {
       ingredients: normalizedIngredients,
       type,
       healthy: Boolean(healthy),
+      directions: directions || "",
+      recipeLink: recipeLink || "",
     };
 
     recipes.push(newRecipe);

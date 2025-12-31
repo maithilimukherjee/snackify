@@ -67,5 +67,10 @@ export const ingredients = [
   "corn",
   "cocoa powder",
   "sugar",
-  "cornstarch"
+  "cornstarch",
+  "buldak ramen",
+  "mozarella cheese",
+  "rice cake",
+  "peri peri",
+  "white sesame seeds"
 ];

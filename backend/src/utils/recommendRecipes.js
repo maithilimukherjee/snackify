@@ -1,5 +1,10 @@
 import { recipes } from "../data/recipes.js";
 
+const getBuyLinks = (ingredient) => ({
+  blinkit: `https://blinkit.com/s/?q=${ingredient}`,
+  instamart: `https://www.swiggy.com/instamart/search?query=${ingredient}`
+});
+
 export const recommendRecipes = (userIngredients, preference = "both") => {
   // normalize user ingredients
   const normalizedUserIngredients = userIngredients.map(i =>
@@ -15,29 +20,38 @@ export const recommendRecipes = (userIngredients, preference = "both") => {
     filteredRecipes = recipes.filter(r => r.type === "non-veg");
   }
 
-  // step 2 → score recipes
+  // step 2 → score recipes + compute missing ingredients
   const scored = filteredRecipes.map(recipe => {
     const recipeIngredients = recipe.ingredients.map(i =>
       i.toLowerCase()
     );
 
-    const score = recipeIngredients.filter(ing =>
+    const matchedIngredients = recipeIngredients.filter(ing =>
       normalizedUserIngredients.includes(ing)
-    ).length;
+    );
 
-    return { ...recipe, score };
+    const missingIngredients = recipeIngredients.filter(
+      ing => !normalizedUserIngredients.includes(ing)
+    );
+
+    return {
+      ...recipe,
+      score: matchedIngredients.length,
+      missingIngredients,
+      buySuggestions: missingIngredients.map(ing => ({
+        name: ing,
+        links: getBuyLinks(ing)
+      }))
+    };
   });
 
-  // step 3 → remove useless recipes
+  // step 3 → remove irrelevant recipes
   let validRecipes;
 
   if (normalizedUserIngredients.length === 1) {
-    // single ingredient → allow broad matches
     validRecipes = scored.filter(r => r.score >= 1);
   } else {
-    // multiple ingredients → stricter matching
     const MIN_MATCH_RATIO = 0.5;
-
     validRecipes = scored.filter(
       r => r.score / normalizedUserIngredients.length >= MIN_MATCH_RATIO
     );

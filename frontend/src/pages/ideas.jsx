@@ -9,6 +9,8 @@ const Ideas = () => {
   const [ingredients, setIngredients] = useState("");
   const [type, setType] = useState("veg");
   const [healthy, setHealthy] = useState(false);
+  const [directions, setDirections] = useState("");
+  const [link, setLink] = useState("");
   const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
@@ -36,6 +38,8 @@ const Ideas = () => {
         ingredients: ingredientsArray,
         type,
         healthy,
+        directions: directions.trim(),
+        recipeLink: link.trim(),
       });
 
       setSuccess("recipe idea submitted successfully!");
@@ -94,6 +98,22 @@ const Ideas = () => {
               />
               healthy
             </label>
+
+            <label>add directions (optional)</label>
+            <input
+              type="text"
+              value={directions}
+              onChange={(e) => setDirections(e.target.value)}
+              placeholder="e.g. cook on low heat for 20 mins"
+            />
+
+            <label>add youtube/website/instagram link </label>
+            <input
+              type="text"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              placeholder="e.g. https://example.com/recipe"
+            />
 
             <Button variant="olive" text="submit idea" type="submit" />
           </form>

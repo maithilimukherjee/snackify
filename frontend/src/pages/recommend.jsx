@@ -77,6 +77,52 @@ const Recommend = () => {
                 <strong>health:</strong>{" "}
                 {recipe.healthy ? "healthy" : "comfort food"}
               </p>
+              {recipe.directions && (
+                <p>
+                  <strong>directions:</strong>{" "}
+                  {recipe.directions}
+                </p>
+              )}
+              {recipe.recipeLink && (
+                <p>
+                  <strong>recipe link:</strong>{" "}
+                  <a
+                    href={recipe.recipeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    view recipe
+                  </a>
+                </p>
+              )}
+
+              {recipe.missingIngredients.length > 0 && (
+                <div className="missing-ingredients">
+                  <strong>missing ingredients:</strong>
+                  <ul>
+                    {recipe.missingIngredients.map((ing, i) => (
+                      <li key={i} >
+                        {ing} -{" "}
+                        <a
+                          href={recipe.buySuggestions[i].links.blinkit}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          buy on blinkit
+                        </a>{" "}
+                        |{" "}
+                        <a
+                          href={recipe.buySuggestions[i].links.instamart}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          buy on instamart
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
         </div>
