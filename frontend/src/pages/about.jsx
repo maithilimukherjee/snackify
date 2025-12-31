@@ -67,7 +67,7 @@ const About = () => {
   i’m always excited to hear from users! if you have any feedback, recipe
   ideas, or just want to say hi, feel free to reach out.
 
-  you can send your recipe ideas directly through the "<a href="/send-ideas">send recipe ideas</a>" page.
+  you can send your recipe ideas directly through the send recipe ideas page.
   together, we can make snackify even better!
 
   contact me directly at via email: <a href="mailto:maithilimukherjee@outlook.com">maithilimukherjee@outlook.com</a>
