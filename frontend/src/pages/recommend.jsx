@@ -55,7 +55,7 @@ const Recommend = () => {
           based on what’s in your fridge
         </p>
 
-        {loading && <p>cooking ideas... 👩‍🍳</p>}
+        {loading && <p>cooking ideas...</p>}
 
         {error && <p className="error">{error}</p>}
 

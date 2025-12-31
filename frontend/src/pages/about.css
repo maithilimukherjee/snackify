@@ -1,0 +1,31 @@
+.about-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f2;
+}
+
+.about-card {
+  background: white;
+  padding: 2.5rem;
+  width: 480px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.about-card h2 {
+  margin-bottom: 1rem;
+}
+
+.about-card p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.about-tagline {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: #556b2f;
+}

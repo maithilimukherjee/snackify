@@ -29,6 +29,7 @@
 .nav-links {
   display: flex;
   gap: 20px;
+  text-decoration: none;
 }
 
 .nav-links span {
@@ -41,6 +42,12 @@
 .nav-links span:hover {
   color: #344e41;
   transform: translateY(-1px);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 15px;
 }
 
 /* mobile responsiveness */

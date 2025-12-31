@@ -33,6 +33,10 @@ const Dashboard = () => {
     navigate("/profile");
   };
 
+  const handleClick1stCard = () => {
+    navigate("/about");
+  }
+
   return (
     <>
       <Navbar isAuthenticated={true} />
@@ -69,8 +73,8 @@ const Dashboard = () => {
         <div className="dashboard-cards">
           <div className="info-card">
             <h3>about snackify</h3>
-            <p>the "why" behind this app</p>
-            <Button text="view" />
+            <p>know more about us!</p>
+            <Button text="view" onClick={handleClick1stCard}/>
           </div>
 
           <div className="info-card">
