@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://snackify-backend-duwv.onrender.com/api",
 });
 
 // attach token automatically if it exists
