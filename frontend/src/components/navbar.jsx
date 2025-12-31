@@ -8,7 +8,6 @@ const Navbar = ({ isAuthenticated }) => {
       <nav className="nav-links">
         {isAuthenticated ? (
           <>
-            <span><a href="/profile">profile</a></span>
             <span><a href="/about">about</a></span>
             <span><a href="/send-ideas">send ideas</a></span>
           </>
