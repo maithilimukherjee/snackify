@@ -11,7 +11,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [foodPref, setFoodPref] = useState("");
+  
 
   const handleRegister = async (e) => {
     console.log("register clicked");
@@ -22,10 +22,9 @@ const Register = () => {
         name,
         email,
         password,
-        food_pref: foodPref,
       });
 
-      navigate("/verify2fa", { state: { email } });
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       alert("registration failed");
@@ -39,9 +38,8 @@ const Register = () => {
       <div className="register-wrapper">
         <div className="register-card">
           <h2>create your account</h2>
-          <p>we’ll send a 2fa code to your email</p>
 
-          <form className="register-form" onSubmit={handleRegister}>
+          <form className="register-form" >
             <input
               type="text"
               placeholder="name"
@@ -65,20 +63,6 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
-            <select
-              className="register-select"
-              value={foodPref}
-              onChange={(e) => setFoodPref(e.target.value)}
-              required
-            >
-              <option value="" disabled>
-                food preference
-              </option>
-              <option value="veg">veg</option>
-              <option value="non-veg">non-veg</option>
-              <option value="vegan">vegan</option>
-            </select>
 
             <Button variant="olive" text="register" onClick={handleRegister}/>
           </form>

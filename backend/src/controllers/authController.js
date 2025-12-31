@@ -12,9 +12,9 @@ const generate2FACode = () => {
 /* ================= REGISTER ================= */
 export const register = async (req, res) => {
   try {
-    const { name, email, password, food_pref } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !password || !food_pref) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "fields cannot be empty" });
     }
 
@@ -30,39 +30,21 @@ export const register = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
     const id = uuidv4();
 
-    const code = generate2FACode();
-    const expiry = new Date(Date.now() + 10 * 60 * 1000);
 
     await pool.query(
       `insert into users 
-      (id, name, email, password, food_pref, twofa_code, twofa_expiry) 
-      values ($1,$2,$3,$4,$5,$6,$7)`,
-      [id, name, email, hashed, food_pref, code, expiry]
+      (id, name, email, password) 
+      values ($1,$2,$3,$4)`,
+      [id, name, email, hashed]
     );
-
-    const info = await transporter.sendMail({
-      from: process.env.MAIL_FROM,
-      to: email,
-      subject: "verify your 2fa",
-      text: `your 2fa code is ${code}. it expires in 10 minutes.`,
-    });
-
-    console.log(
-      "ethereal preview url:",
-      nodemailer.getTestMessageUrl(info)
-    );
-
-    res.status(201).json({
-      message: "verify your 2FA",
-    });
-
+    res.status(201).json({ message: "registration successful" });
   } catch (error) {
     console.error("register error:", error);
     res.status(500).json({ message: "server error" });
   }
 };
 
-/* ================= LOGIN (NO 2FA) ================= */
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -104,48 +86,6 @@ export const login = async (req, res) => {
   }
 };
 
-/* ================= VERIFY 2FA ================= */
-export const verify2FA = async (req, res) => {
-  try {
-    const { email, code } = req.body;
-
-    if (!email || !code) {
-      return res.status(400).json({ message: "email and code required" });
-    }
-
-    const existing = await pool.query(
-      "SELECT * FROM users WHERE email=$1",
-      [email]
-    );
-
-    if (existing.rows.length === 0) {
-      return res.status(400).json({ message: "invalid credentials" });
-    }
-
-    const user = existing.rows[0];
-
-    if (user.twofa_code !== code) {
-      return res.status(400).json({ message: "invalid 2fa code" });
-    }
-
-    if (new Date() > new Date(user.twofa_expiry)) {
-      return res.status(400).json({ message: "2fa code expired" });
-    }
-
-    await pool.query(
-      "UPDATE users SET twofa_code=NULL, twofa_expiry=NULL, is_verified=true WHERE id=$1",
-      [user.id]
-    );
-
-    res.status(200).json({
-      message: "verification successful"
-    });
-  } catch (error) {
-    console.error("verify2FA error:", error);
-    res.status(500).json({ message: "server error" });
-  }
-};
-
 /* ================= AUTH MIDDLEWARE ================= */
 export const auth = async (req, res, next) => {
   try {
@@ -164,3 +104,4 @@ export const auth = async (req, res, next) => {
     return res.status(401).json({ message: "unauthorized" });
   }
 };
+  
