@@ -1,9 +1,8 @@
 import { pool } from "../config/db.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
-import { transporter } from "../config/mailer.js";
 import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
+
 
 const generate2FACode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
