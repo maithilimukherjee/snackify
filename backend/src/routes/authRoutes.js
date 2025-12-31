@@ -1,5 +1,5 @@
 import express from "express";
-import { register, login, verify2FA, auth } from "../controllers/authController.js";
+import { register, login, auth } from "../controllers/authController.js";
 import { pool } from "../config/db.js";
 
 const router = express.Router();
