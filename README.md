@@ -1,5 +1,7 @@
 # snackify 
 
+> note: backend web service deployment is currently suspended (render free tier limitations). frontend remains live; backend can be restarted on request.
+
 snackify is a full-stack food recommendation prototype that suggests recipes based on the ingredients a user already has. instead of asking *“what should i cook?”*, snackify asks *“what’s in your fridge?”* and works from there.
 
 this project focuses on **logic, api design, and deployment**, rather than being a fully scaled consumer product.
